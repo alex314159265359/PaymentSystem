@@ -3,7 +3,7 @@ import { ShopsService } from './shops.service';
 import { ShopsModel } from './shops.model';
 import { PaymentsModel } from '../payments/payments.model';
 import { SystemSettingsModel } from '../system/system-settings.model';
-import { getModelToken } from '@nestjs/sequelize';
+import { getConnectionToken, getModelToken } from '@nestjs/sequelize';
 
 describe('ShopsService', () => {
   let service: ShopsService;
@@ -12,6 +12,7 @@ describe('ShopsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ShopsService,
+        { provide: getConnectionToken(), useValue: {} },
         { provide: getModelToken(ShopsModel), useValue: {} },
         { provide: getModelToken(PaymentsModel), useValue: {} },
         { provide: getModelToken(SystemSettingsModel), useValue: {} },

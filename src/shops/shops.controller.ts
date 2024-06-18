@@ -26,4 +26,13 @@ export class ShopsController {
   createPayments(@Param('id') id: number, @Body() body: CreateShopPaymentDto) {
     return this.shopsService.createPayment(id, body.amount);
   }
+
+  @Post(':id/payout')
+  @ApiResponse({
+    status: 200,
+    description: 'Returns payout info',
+  })
+  payout(@Param('id') id: number) {
+    return this.shopsService.payout(id);
+  }
 }

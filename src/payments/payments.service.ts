@@ -17,7 +17,10 @@ export class PaymentsService {
         : PaymentStatus.processed;
 
     await this.paymentsModel.update(
-      { status },
+      {
+        status,
+        ...(status === StatusChangeEnum.completed && { lockedAmount: 0 }),
+      },
       { where: { id: { [Op.in]: ids }, status: whereStatus } },
     );
   }
