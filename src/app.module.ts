@@ -3,6 +3,7 @@ import { SystemModule } from './system/system.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { SystemSettings } from './system/system-settings.model';
 import { ConfigModule } from '@nestjs/config';
+import { ShopsModule } from './shops/shops.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ConfigModule } from '@nestjs/config';
       autoLoadModels: true,
     }),
     SystemModule,
+    ShopsModule,
   ],
   controllers: [],
   providers: [],
