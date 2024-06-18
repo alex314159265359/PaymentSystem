@@ -4,6 +4,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { SystemSettings } from './system/system-settings.model';
 import { ConfigModule } from '@nestjs/config';
 import { ShopsModule } from './shops/shops.module';
+import { PaymentsModule } from './payments/payments.module';
+import { ShopsModel } from './shops/shops.model';
+import { PaymentsModel } from './payments/payments.model';
 
 @Module({
   imports: [
@@ -15,13 +18,14 @@ import { ShopsModule } from './shops/shops.module';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_DBNAME,
-      models: [SystemSettings],
+      models: [SystemSettings, ShopsModel, PaymentsModel],
       logging: console.log,
       synchronize: true,
       autoLoadModels: true,
     }),
     SystemModule,
     ShopsModule,
+    PaymentsModule,
   ],
   controllers: [],
   providers: [],

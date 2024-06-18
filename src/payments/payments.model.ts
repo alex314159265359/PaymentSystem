@@ -4,7 +4,7 @@ import {
   Model,
   NotNull,
   PrimaryKey,
-  HasMany,
+  ForeignKey,
 } from 'sequelize-typescript';
 import {
   DataTypes,
@@ -12,26 +12,45 @@ import {
   InferCreationAttributes,
   Sequelize,
 } from 'sequelize';
-import { PaymentsModel } from '../payments/payments.model';
+import { ShopsModel } from '../shops/shops.model';
+
+enum PaymentStatus {
+  received = 'received',
+  processed = 'processed',
+  completed = 'completed',
+  paid = 'paid',
+}
 
 @Table({
   timestamps: false,
 })
-export class ShopsModel extends Model<
-  InferAttributes<ShopsModel>,
-  InferCreationAttributes<ShopsModel>
+export class PaymentsModel extends Model<
+  InferAttributes<PaymentsModel>,
+  InferCreationAttributes<PaymentsModel>
 > {
   @PrimaryKey
   @Column({ type: DataTypes.BIGINT, allowNull: false, autoIncrement: true })
   id: number;
 
   @NotNull
-  @Column({ type: DataTypes.STRING, allowNull: false })
-  name: string;
+  @Column({ type: DataTypes.BIGINT, allowNull: false })
+  @ForeignKey(() => ShopsModel)
+  shopId: number;
 
   @NotNull
   @Column({ type: DataTypes.DECIMAL, allowNull: false })
-  commission: number;
+  amount: number;
+
+  @NotNull
+  @Column({ type: DataTypes.DECIMAL, allowNull: false })
+  commissionAmount: number;
+
+  @NotNull
+  @Column({
+    type: DataTypes.ENUM(...Object.values(PaymentStatus)),
+    allowNull: false,
+  })
+  status: string;
 
   @NotNull
   @Column({
@@ -48,7 +67,4 @@ export class ShopsModel extends Model<
     defaultValue: Sequelize.literal('NOW()'),
   })
   updatedAt: Date;
-
-  @HasMany(() => PaymentsModel)
-  payments: PaymentsModel[];
 }
