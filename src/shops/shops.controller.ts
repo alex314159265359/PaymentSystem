@@ -1,7 +1,8 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Param, Post } from '@nestjs/common';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { ShopsService } from './shops.service';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CreateShopPaymentDto } from './dto/create-shop-payment.dto';
 
 @Controller('shops')
 @ApiTags('Shops')
@@ -15,5 +16,14 @@ export class ShopsController {
   })
   createShop(@Body() body: CreateShopDto) {
     return this.shopsService.createShop(body);
+  }
+
+  @Post(':id/payment')
+  @ApiResponse({
+    status: 200,
+    description: 'Returns payment id',
+  })
+  createPayments(@Param('id') id: number, @Body() body: CreateShopPaymentDto) {
+    return this.shopsService.createPayment(id, body.amount);
   }
 }

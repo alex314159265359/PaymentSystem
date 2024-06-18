@@ -14,7 +14,7 @@ import {
 } from 'sequelize';
 import { ShopsModel } from '../shops/shops.model';
 
-enum PaymentStatus {
+export enum PaymentStatus {
   received = 'received',
   processed = 'processed',
   completed = 'completed',
@@ -44,6 +44,10 @@ export class PaymentsModel extends Model<
   @NotNull
   @Column({ type: DataTypes.DECIMAL, allowNull: false })
   commissionAmount: number;
+
+  @NotNull
+  @Column({ type: DataTypes.DECIMAL, allowNull: false })
+  lockedAmount: number;
 
   @NotNull
   @Column({

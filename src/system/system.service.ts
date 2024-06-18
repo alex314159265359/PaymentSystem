@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { SystemSettings } from './system-settings.model';
+import { SystemSettingsModel } from './system-settings.model';
 import { SetCommissionDto } from './dto/set-commission.dto';
 
 @Injectable()
 export class SystemService {
   constructor(
-    @InjectModel(SystemSettings)
-    private systemSettingsModel: typeof SystemSettings,
+    @InjectModel(SystemSettingsModel)
+    private systemSettingsModel: typeof SystemSettingsModel,
   ) {}
 
   async setCommission(commissions: SetCommissionDto) {

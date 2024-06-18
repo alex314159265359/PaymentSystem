@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SystemModule } from './system/system.module';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { SystemSettings } from './system/system-settings.model';
+import { SystemSettingsModel } from './system/system-settings.model';
 import { ConfigModule } from '@nestjs/config';
 import { ShopsModule } from './shops/shops.module';
 import { PaymentsModule } from './payments/payments.module';
@@ -18,7 +18,7 @@ import { PaymentsModel } from './payments/payments.model';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_DBNAME,
-      models: [SystemSettings, ShopsModel, PaymentsModel],
+      models: [SystemSettingsModel, ShopsModel, PaymentsModel],
       logging: console.log,
       synchronize: true,
       autoLoadModels: true,

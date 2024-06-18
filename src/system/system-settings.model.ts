@@ -15,9 +15,9 @@ import {
 @Table({
   timestamps: false,
 })
-export class SystemSettings extends Model<
-  InferAttributes<SystemSettings>,
-  InferCreationAttributes<SystemSettings>
+export class SystemSettingsModel extends Model<
+  InferAttributes<SystemSettingsModel>,
+  InferCreationAttributes<SystemSettingsModel>
 > {
   @PrimaryKey
   @Column({ type: DataTypes.BIGINT, allowNull: false, autoIncrement: true })
@@ -29,7 +29,7 @@ export class SystemSettings extends Model<
 
   @NotNull
   @Column({ type: DataTypes.JSONB, allowNull: false, defaultValue: {} })
-  attrs: object;
+  attrs: { [key: string]: any };
 
   @NotNull
   @Column({
